@@ -1,3 +1,6 @@
+This project is forked from our capstone project, 
+repo : https://github.com/JishaMansoor/NetVlad_Attention
+
 #Video Understanding : Automatic Tagging of videos through self attentive learnable key descriptors
 
 This code is forked from Willow Project and change are made on top of it
