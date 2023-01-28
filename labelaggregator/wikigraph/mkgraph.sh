@@ -1,0 +1,1 @@
+python wikigraph.py '/opt/iproject/videolabelling/labelaggregator/wikidump/dump' 4  graph

@@ -12,7 +12,8 @@ import warnings
 warnings.filterwarnings("ignore")
 from langid.langid import LanguageIdentifier 
 from langid.langid import model as langidmodel
-import spacy
+#import spacy
+from multi_rake import Rake
 import pandas as pd
 import os
 
@@ -78,25 +79,18 @@ langModelMap = dict({'es': "es_core_news_sm",'en': "en_core_web_sm", 'zh':"zh_co
 
 print(langModelMap.get(lang))
 
-nlp = spacy.load(langModelMap.get(lang))
-
-doc = nlp(video_transcription['text'])
+rake = Rake()
+keywords = rake.apply(video_transcription['text'])
 
 
 required_entities = ['CARDINAL','ORDINAL','DATE','TIME']
 
 
 extracted_tokens = []
-for ent in doc.ents:
-    if ent.label_ not in required_entities:
-        extracted_tokens.append((filename,lang,ent.text, ent.label_),)
-        print(ent.text, ent.start_char, ent.end_char, ent.label_)
+rake_keywords = [x[0] for x in keywords][:20]
 
-if not extracted_tokens:
-    for token in doc:
-        if token.pos_ in ['NOUN','PROPN']:
-            print("inside nouns")
-            extracted_tokens.append(filename,lang,token.text) 
+for token in rake_keywords:
+    extracted_tokens.append((filename,lang,token, 'rake'),)
 
 try:
     df = pd.read_csv(asroutfile)

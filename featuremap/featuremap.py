@@ -8,6 +8,8 @@ import os
 path = sys.argv[1]
 id = sys.argv[2].split('.')[0]
 dst = sys.argv[3]
+print('**************')
+print(path)
 sequence_example = open(path, 'rb').read()
 x = tf.train.SequenceExample.FromString(sequence_example)
 dict_obj = MessageToDict(x)

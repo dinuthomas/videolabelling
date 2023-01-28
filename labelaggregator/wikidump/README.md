@@ -20,10 +20,9 @@ prepare wikidump data
            4. finally for the different languages generate corresponding groupby .csv files and stored in a given groupby directory
 
          Run this scripts:
-            $ python wikidump.py <wiki_url>  <groupby_dir_name>
+            $ python wikidump.py <wiki_url>  <out_dir_name>
            
          Example:
-            $ python wikidump.py https://dumps.wikimedia.org/wikidatawiki/entities/latest-all.json.bz2  wikidump
+            $ python wikidump.py https://dumps.wikimedia.org/wikidatawiki/entities/latest-all.json.bz2  dump
            
-         Expected Execution Time: 20 hours (Apx.)
 

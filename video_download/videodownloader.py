@@ -32,7 +32,7 @@ def download_movie(url, videoFolder, dur):
     if not os.path.exists(videoFolder):
         os.mkdir(videoFolder)
 
-    videoName = str(os.path.basename(url)).split('=')[-1]+'.mp4'
+    videoName = str(os.path.basename(url))+'.mp4'
     videoFile = os.path.join(videoFolder, videoName)
 
     if os.path.exists(videoFile):
