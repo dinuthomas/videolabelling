@@ -15,6 +15,7 @@ from langid.langid import model as langidmodel
 import spacy
 import pandas as pd
 import os
+import sys
 
 
 #------filter from wiki_dump file----------------
@@ -43,6 +44,8 @@ def save_to_mp3(url, videoFolder=''):
             'preferredquality': '192',
         }],
         'outtmpl':videoFile,
+        'duration':"00:01:00.00",
+        'start_time':"00:00:05.00"
     }
 
     with youtube_dl.YoutubeDL(options) as downloader:
@@ -63,6 +66,18 @@ asroutfile=args.asroutfile
 
 filename = save_to_mp3(youtube_url)
 #filename = 'Martin Luther King, Jr. I Have A Dream Speech-3vDWWy4CMhE.mp3'
+
+try:
+    df = pd.read_csv(asroutfile)
+    print("********")
+    print(filename)
+    if df['filename'].eq(filename).sum() > 0:
+        print("Already done the transcription before, exit")
+        sys.exit()
+
+except FileNotFoundError:
+    print("no records, continue the transcription")
+
 
 whispermodel = whisper.load_model("base")
 
@@ -96,7 +111,7 @@ if not extracted_tokens:
     for token in doc:
         if token.pos_ in ['NOUN','PROPN']:
             print("inside nouns")
-            extracted_tokens.append(filename,lang,token.text) 
+            extracted_tokens.append((filename,lang,token.text,token.pos_))
 
 try:
     df = pd.read_csv(asroutfile)
