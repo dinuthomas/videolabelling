@@ -68,18 +68,27 @@ for id in ids:
     item_df = df[df.filename == id]
     #item_df['asr_token'] = item_df.asr_token.map(lambda x: str(x).replace(' ',''))
     taglist = list(item_df.asr_token)
-    vid_doc = (' '+' '.join(taglist)+' ').lower()
-
     lang = ''.join(item_df.lang.unique())
     print(''.join(item_df.lang.unique()))
+    print(taglist)
+    for tag in taglist:
+        #vid_doc = (' '+tag+' ').lower()
+        vid_doc = (" "+str(tag).replace(" ","#")+" ").lower()
+        #vid_doc = (tag).lower()
+        for at in atm[lang]:
+            result = find_keywords(vid_doc, at)
+            print(vid_doc)
+            final_result += result
 
+    tagstring = (" "+" ".join(taglist)+" ").lower()
     for at in atm[lang]:
-        result = find_keywords(vid_doc, at)
+        result = find_keywords(tagstring, at)
+        print(tagstring)
         final_result += result
 
     print(final_result)
     token_id_comb.append((id,taglist,final_result))
-    print(token_id_comb)
+    #print(token_id_comb)
     try:
         outdf = pd.read_csv(output_file_path)
         increment = pd.DataFrame(columns=columns, data = token_id_comb)
@@ -88,7 +97,8 @@ for id in ids:
 
         outdf = pd.DataFrame(columns=columns, data=token_id_comb)
 
-
-outdf[columns].to_csv(output_file_path)
+final_out = outdf[columns].drop_duplicates(['vid'],keep='last')
+final_out.to_csv(output_file_path)
+print(final_out.head(10))
 print("\n---stored output csv file successfully---")
 
