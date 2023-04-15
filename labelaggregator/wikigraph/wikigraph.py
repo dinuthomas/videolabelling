@@ -6,7 +6,7 @@ import pandas as pd
 import shutil
 import ast
 
-lang_dict = {'en':'english', 'es':'spanish', 'zh':'chinese','ar':'arabic'}
+lang_dict = {'en':'english'}
 
 #-----make automaton for entities----
 def make_aho_automaton(keywords):

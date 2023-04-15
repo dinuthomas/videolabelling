@@ -17,6 +17,8 @@ import pandas as pd
 import os
 import sys
 
+from multi_rake import Rake
+
 
 #------filter from wiki_dump file----------------
 def save_to_mp3(url, videoFolder=''):

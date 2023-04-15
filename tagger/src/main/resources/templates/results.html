@@ -1,0 +1,14 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
+<head> 
+    <title>ASR Extraction Results</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<h1>Tags Extracted from Video</h1>
+    <p th:text="'VideoUrl: ' + ${video2text.id}" />
+    <p th:text="'Extracted Text [Whisper Transformer Model]: ' + ${video2text.content}" />
+    <p th:text="'Extracted Keywords [Spacy + RAKE]: ' + ${video2text.keywords}" />
+    <a href="/content/video2text">Transcribe another Video</a>
+</body>
+</html>

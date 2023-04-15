@@ -24,5 +24,7 @@ prepare wikidump data
            
          Example:
             $ python wikidump.py https://dumps.wikimedia.org/wikidatawiki/entities/latest-all.json.bz2  dump
+
+nohup python wikidump.py https://dumps.wikimedia.org/wikidatawiki/entities/latest-all.json.bz2  dump &>wikidump.out
            
 
